@@ -12,6 +12,16 @@ const users = (state: User[] = [], action: UserActions) => {
             );
         case ActionTypes.ADD_USER:
             return [action.payload, ...state];
+        case ActionTypes.UPDATE_USER:
+            return state.map((item) => {
+                if (item.id !== action.payload.id) {
+                    return item;
+                }
+                return {
+                    ...item,
+                    ...action.payload,
+                };
+            });
         default:
             return state;
     }

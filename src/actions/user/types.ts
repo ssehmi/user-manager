@@ -22,6 +22,10 @@ export interface AddUserAction {
     type: ActionTypes.ADD_USER;
     payload: User;
 }
+export interface EditUserAction {
+    type: ActionTypes.UPDATE_USER;
+    payload: User;
+}
 
 export interface GetUsersError {
     type: ActionTypes.GET_USERS_ERROR;
@@ -32,4 +36,5 @@ export type UserActions =
     | GetUsersAction
     | RemoveUserAction
     | AddUserAction
+    | EditUserAction
     | GetUsersError;

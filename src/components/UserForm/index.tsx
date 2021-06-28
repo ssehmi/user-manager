@@ -4,19 +4,45 @@ import Button from '@material-ui/core/Button';
 import userFormSchema from '../../validatoinSchemas/user/userFormValidationSchema';
 import { useDispatch } from 'react-redux';
 import addUserAction from '../../actions/user/addNewUserAction';
+import editUserAction from '../../actions/user/editUserAction';
+import { User } from '../../types/User';
 
-const UserForm = () => {
+interface ComponentProps {
+    mode?: 'edit' | 'new';
+    initialValue?: User;
+    onSubmitSuccess?: () => void;
+}
+
+const UserForm = ({
+    mode = 'new',
+    initialValue = {
+        id: -1,
+        first_name: '',
+        last_name: '',
+        email: '',
+        avatar: '',
+    },
+    onSubmitSuccess = () => {},
+}: ComponentProps) => {
     const dispatch = useDispatch();
     const formik = useFormik({
         initialValues: {
-            first_name: '',
-            last_name: '',
-            email: '',
-            avatar: '',
+            first_name: initialValue.first_name,
+            last_name: initialValue.last_name,
+            email: initialValue.email,
+            avatar: initialValue.avatar,
         },
         validationSchema: userFormSchema,
         onSubmit: async (values) => {
-            await dispatch(addUserAction(values));
+            if (mode === 'new') {
+                await dispatch(addUserAction(values));
+            } else if (mode === 'edit') {
+                await dispatch(
+                    editUserAction({ ...values, id: initialValue.id })
+                );
+            }
+
+            onSubmitSuccess();
         },
     });
 

@@ -23,6 +23,10 @@ const UserDetailPage = (props: IComponentProps) => {
 
     const user = useAppSelector((state) => selectUserById(state, userId));
 
+    const navigateToEdit = () => {
+        navigate && navigate(`/user/edit/${userId}`);
+    };
+
     const removeUser = async () => {
         await dispatch(removeUserAction(userId));
         navigate && navigate(RoutePaths.userList);
@@ -39,7 +43,10 @@ const UserDetailPage = (props: IComponentProps) => {
                         first_name={user.first_name}
                         last_name={user.last_name}>
                         <CardActions>
-                            <Button size="small" color="primary">
+                            <Button
+                                size="small"
+                                color="primary"
+                                onClick={navigateToEdit}>
                                 Edit
                             </Button>
                             <Button
