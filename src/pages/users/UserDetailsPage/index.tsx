@@ -30,7 +30,7 @@ const UserDetailPage = (props: IComponentProps) => {
 
     return (
         <Container maxWidth="lg">
-            <Grid item xs={12} md={6} justify="center">
+            <Grid item xs={12} md={6}>
                 {user ? (
                     <UserCard
                         id={user.id}

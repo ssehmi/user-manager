@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
 import getUsersAction from '../../../actions/user/getUsersAction';
@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import UserCard from '../../../components/UserCard';
 import ItemList from '../../../components/ItemList';
+import UserForm from '../../../components/UserForm';
 
 interface IComponentProps extends RouteComponentProps {}
 
@@ -18,6 +19,11 @@ const ListUserPage = (props: IComponentProps) => {
     const dispatch = useDispatch();
     const users = useAppSelector(selectUsers);
     const classes = useStyles();
+    const [showUserForm, setShowUserForm] = useState(false);
+
+    const toggleForm = () => {
+        setShowUserForm((prev) => !prev);
+    };
 
     useEffect(() => {
         if (users.length === 0) {
@@ -47,11 +53,15 @@ const ListUserPage = (props: IComponentProps) => {
                     </Typography>
                     <div className={classes.heroButtons}>
                         <Grid container justify="center">
-                            <Button variant="contained" color="primary">
-                                Add New User
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={toggleForm}>
+                                {showUserForm ? 'Close Form' : 'Add New User'}
                             </Button>
                         </Grid>
                     </div>
+                    {showUserForm && <UserForm />}
                 </Container>
             </div>
             <Container className={classes.cardGrid} maxWidth="md">

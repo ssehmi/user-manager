@@ -7,7 +7,6 @@ const makeRequest = async (req: RequestInfo, fetchOptions?: RequestInit) => {
     if (response.status === 204) {
         return { status: response.status };
     }
-    console.log('response from makereq', response.json);
     const jsonResponse = await response?.json();
 
     return jsonResponse;

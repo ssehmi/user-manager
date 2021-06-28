@@ -18,9 +18,18 @@ export interface RemoveUserAction {
     payload: string;
 }
 
+export interface AddUserAction {
+    type: ActionTypes.ADD_USER;
+    payload: User;
+}
+
 export interface GetUsersError {
     type: ActionTypes.GET_USERS_ERROR;
     error: string;
 }
 
-export type UserActions = GetUsersAction | RemoveUserAction | GetUsersError;
+export type UserActions =
+    | GetUsersAction
+    | RemoveUserAction
+    | AddUserAction
+    | GetUsersError;

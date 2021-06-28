@@ -10,6 +10,8 @@ const users = (state: User[] = [], action: UserActions) => {
             return state.filter(
                 (user) => user.id.toString() !== action.payload
             );
+        case ActionTypes.ADD_USER:
+            return [action.payload, ...state];
         default:
             return state;
     }
